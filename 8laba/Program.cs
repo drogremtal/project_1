@@ -43,9 +43,11 @@ namespace _8laba
 
             string text = "Hello";
 
-            string bintext = new Service().TextToBin(text);
-            string test = "10101010101110101101";
+            Console.WriteLine(text);
 
+
+            string test = new Service().TextToBin(text);
+            string p = string.Empty;          
             int k = test.Length < res.Length ? test.Length : res.Length;
 
             for (int t = 0; t < res.Length; t++)
@@ -57,13 +59,18 @@ namespace _8laba
             {
                 if (string.Equals(test[j],'0'))
                 {
-                    res[j] += "  ";}
+                    res[j] += "  ";
+                    p += "0";
+                }
                 else
                 {
                     res[j] += " ";
+                    p += "1";
                 }
             }
 
+
+            Console.WriteLine(p);
             out_text = string.Join("",res);
 
             using (FileStream fstream = new FileStream(@"output.txt", FileMode.OpenOrCreate))
@@ -88,13 +95,15 @@ namespace _8laba
             }
 
 
+            
+
             var intext = textFromFile.Split('.');
 
             string outtex = string.Empty;
 
             foreach (var item in intext)
             {
-                for (int t = 0; t < item.Length; t++)
+                for (int t = 0; t < item.Length-1; t++)
                 {
                     if (string.Equals(item[0],' ') && string.Equals(item[1],' '))
                     {
@@ -108,15 +117,11 @@ namespace _8laba
                 }
             }
 
-
-
-
-
-            Console.WriteLine(out_text);
-
-
             Console.WriteLine(outtex);
-            Console.WriteLine(test);
+
+            string decText = new Service().BinToText(outtex);
+
+            Console.WriteLine(decText);
             Console.ReadKey();
         }
     }
